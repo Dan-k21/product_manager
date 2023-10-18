@@ -1,22 +1,29 @@
 package model;
 
+import dao.ReadAndWriteProductList;
+
+import java.util.List;
+
 public class Product {
     private int id;
     private String name;
     private int quantity;
     private int price;
     private String category;
-    static int idIncrement = 1;
-
+    public Product() {}
+    private ReadAndWriteProductList readAndWriteProductList = new ReadAndWriteProductList();
     public Product(String name, int quantity, int price, String category) {
-        this.id = idIncrement;
+        List<Product> productList = readAndWriteProductList.readFile();
+        if (productList.isEmpty()) {
+            this.id = 0;
+        } else {
+            this.id = productList.get(productList.size() - 1).getId() + 1;
+        }
         this.name = name;
         this.quantity = quantity;
         this.price = price;
         this.category = category;
-        idIncrement++;
     }
-
     public Product(int id, String name, int quantity, int price, String category) {
         this.id = id;
         this.name = name;
@@ -63,5 +70,14 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + getId() + ", " +
+                "Name: " + getName() + ", " +
+                "Quantity: " + getQuantity() + ", " +
+                "Price: " + getPrice() + ", " +
+                "Category: " + getCategory();
     }
 }

@@ -6,18 +6,28 @@ public class Input {
     private static Scanner input = new Scanner(System.in);
 
     public static int getInputInt() {
-        int number;
+        String regexNum = "^[0-9]+$";
+        String number;
         while (true) {
-            try {
-                number = Integer.parseInt(input.nextLine());
-                return number;
-            } catch (NumberFormatException exception) {
-                System.out.print("Vui lòng nhập lại số: ");
+            number = input.nextLine();
+            if (number.matches(regexNum)) {
+                return Integer.parseInt(number);
+            } else {
+                System.out.print("Vui lòng nhập lại: ");
             }
         }
     }
 
     public static String getInputString() {
-        return input.nextLine();
+        String regexString = "^[A-Za-z]+$";
+        String string;
+        while (true) {
+            string = input.nextLine();
+            if (string.matches(regexString)) {
+                return string;
+            } else {
+                System.out.print("Vui lòng nhập lại: ");
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ package manager;
 import dao.ReadAndWriteProductList;
 import model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductManger implements IManager<Product> {
@@ -21,9 +22,12 @@ public class ProductManger implements IManager<Product> {
     }
 
     @Override
-    public boolean edit(int id, Product product) {
+    public boolean edit(int id, Product newProduct) {
         int index = findById(id);
-        this.productList.set(index, product);
+        if (index == -1) {
+            return false;
+        }
+        this.productList.set(index, newProduct);
         readAndWriteProductList.writeFile(this.productList);
         return true;
     }
@@ -31,6 +35,9 @@ public class ProductManger implements IManager<Product> {
     @Override
     public boolean delete(int id) {
         int index = findById(id);
+        if (index == -1) {
+            return false;
+        }
         this.productList.remove(index);
         readAndWriteProductList.writeFile(this.productList);
         return true;
@@ -38,7 +45,7 @@ public class ProductManger implements IManager<Product> {
 
     @Override
     public List<Product> showAll() {
-        return productList;
+        return this.productList;
     }
 
     public int findById(int id) {

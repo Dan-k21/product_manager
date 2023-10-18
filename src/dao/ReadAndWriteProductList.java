@@ -25,12 +25,12 @@ public class ReadAndWriteProductList {
             bufferedWriter.write(data);
             bufferedWriter.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
-    public List<Product> readFile() {
-        List<Product> products = new ArrayList<>();
+    public ArrayList<Product> readFile() {
+        ArrayList<Product> products = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

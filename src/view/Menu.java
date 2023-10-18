@@ -18,7 +18,8 @@ public class Menu {
                     "1. Thêm sản phẩm\n" +
                     "2. Sửa sản phẩm\n" +
                     "3. Xoá sản phẩm\n" +
-                    "0. Thoát");
+                    "4. Hiển thị các sản phẩm\n" +
+                    "0. Thoát\n");
             System.out.print("Nhập lựa chọn: ");
             choice = Input.getInputInt();
             switch (choice) {
@@ -27,6 +28,9 @@ public class Menu {
                     break;
                 case 2:
                     showMenuEdit();
+                    break;
+                case 3:
+                    showDeleteMenu();
                     break;
                 case 4:
                     showProductList();
@@ -45,10 +49,10 @@ public class Menu {
         int price = Input.getInputInt();
         System.out.print("Nhập loại: ");
         String category = Input.getInputString();
-        Product product = new Product(name, quantity, price, category);
-        listProduct.add(product);
+        Product products = new Product(name, quantity, price, category);
+        listProduct.add(products);
     }
-    
+
     public void showProductList() {
         System.out.println("----Danh sách sản phẩm----");
         List<Product> list = listProduct.showAll();
@@ -63,7 +67,7 @@ public class Menu {
         int id = Input.getInputInt();
         System.out.print("Nhập tên: ");
         String name = Input.getInputString();
-        System.out.print("Nhập số lượng:");
+        System.out.print("Nhập số lượng: ");
         int quantity = Input.getInputInt();
         System.out.print("Nhập giá: ");
         int price = Input.getInputInt();
@@ -71,5 +75,12 @@ public class Menu {
         String category = Input.getInputString();
         Product product = new Product(id, name, quantity, price, category);
         listProduct.edit(id, product);
+    }
+
+    public void showDeleteMenu() {
+        System.out.println("-----Xoá sản phẩm----");
+        System.out.println("Nhập ID muốn xoá: ");
+        int id = Input.getInputInt();
+        listProduct.delete(id);
     }
 }
